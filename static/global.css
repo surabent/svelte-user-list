@@ -64,7 +64,3 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
-.container {
-  width: 100vw;
-  height: 100vh;
-}
