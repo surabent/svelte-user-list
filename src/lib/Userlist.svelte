@@ -54,11 +54,13 @@
 </script>
 
 {#if users}
-<button class="btn" disabled={page <= 1} on:click={() => clickPageButton("prev")}>BACK</button>
-<button class="btn" disabled={page == users.total_pages} on:click={() => clickPageButton("next")}>NEXT</button>
-<ul class="list">
-  {#if Object.hasOwn(users, "data")}
-  {#each users.data as item}
+<div class="page-btn">
+  <button class="btn" disabled={page <= 1} on:click={() => clickPageButton("prev")}>BACK</button>
+</div>
+<div>
+  <ul class="list">
+    {#if Object.hasOwn(users, "data")}
+    {#each users.data as item}
     <li class="listItem">
       <img src={item.avatar} alt={item.avatar} class="avatar" />
       <div class="itemText">
@@ -66,9 +68,17 @@
         <p class="email">Email: {item.email}</p>
       </div>
     </li>
-  {/each}
-  {/if}
-</ul>
+    {/each}
+    {/if}
+  </ul>
+</div>
+<div class="page-btn">
+  <button class="btn" disabled={page == users.total_pages} on:click={() => clickPageButton("next")}>NEXT</button>
+</div>
+<div class="mobile-page-btn">
+  <button class="btn" disabled={page <= 1} on:click={() => clickPageButton("prev")}>BACK</button>
+  <button class="btn" disabled={page == users.total_pages} on:click={() => clickPageButton("next")}>NEXT</button>
+</div>
 {/if}
 
 <!-- {#await users}
@@ -121,18 +131,18 @@
   }
   .list {
     list-style: none;
+    display: flex;
+    flex-direction: column;
     padding: 0;
-    padding-bottom: 1rem;
+    gap: 0.5rem;
   }
   .listItem {
-    height: 12vh;
-    padding-left: 2rem;
-    padding-top: 1rem;
+    padding: 1rem;
     border-radius: 10px;
     box-shadow: 0px 4px 5px #aaa;
-    margin-bottom: 1rem;
     transition: all 0.2s ease;
     background-color: #ffffff;
+    min-width: 20rem;
   }
   .listItem:hover {
     background-color: #357c93;
@@ -147,33 +157,45 @@
   }
   .listItem > .itemText {
     margin-left: 1rem;
-    margin-bottom: 0;
     text-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
-  @media (max-width: 425px) {
+  .listItem > .itemText p {
+    margin: 0;
+  }
+  .page-btn {
+    align-self: center;
+    justify-self: center;
+  }
+  @media (max-width: 768px) {
     .listItem {
-      height: 14vh;
-      padding-left: 1rem;
-      padding-top: 1rem;
+      padding: 1rem;
       box-shadow: 0px 4px 5px #aaa;
       border-radius: 10px;
-      margin-bottom: 1rem;
+      min-width: 20rem;
     }
     .listItem > img {
       float: left;
     }
-    .email {
-      display: none;
-    }
-    .listItem > .itemText {
-      margin-left: 2rem;
-      margin-top: 1rem;
-    }
     .avatar {
-      margin-top: 1.3rem;
       width: 50px;
       height: 50px;
       border-radius: 100px;
+    }
+    .page-btn {
+      display: none;
+    }
+    .mobile-page-btn {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .mobile-page-btn {
+      display: none;
     }
   }
 </style>

@@ -2,6 +2,13 @@
     import Userlist from "$lib/Userlist.svelte";
   </script>
   <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      gap: 1rem;
+    }
     .header {
       text-transform: uppercase;
       font-weight: 600;
@@ -9,35 +16,31 @@
       margin-top: 0;
       margin-bottom: 5px;
     }
-    .row {
-      text-align: center;
-    }
-    .list {
-      margin: auto;
-      width: 30vw
+    .user-list {
+      display: flex;
+      gap: 4rem;
     }
     @media (max-width: 425px) {
-      .list {
-        width: 90vw;
+      .user-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
       }
     }
     @media (min-width: 426px) and (max-width: 768px) {
-      .list {
-        width: 50vw;
+      .user-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
       }
     }
     @media (min-width: 769px) and (max-width: 1024px) {
-      .list {
-        width: 40vw;
-      }
     }
   </style>
   
   <div class="container">
-    <div class="row">
-      <p class="header">user list</p>
-    </div>
-    <div class="row list">
+    <p class="header">user list</p>
+    <div class="user-list">
       <Userlist/>
     </div>
   </div>
